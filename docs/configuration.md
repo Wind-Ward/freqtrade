@@ -234,7 +234,6 @@ Mandatory parameters are marked as **Required**, which means that they are requi
 | `exchange.only_from_ccxt` | Prevent data-download from data.binance.vision. Leaving this as false can greatly speed up downloads, but may be problematic if the site is not available.<br>*Defaults to `false`*<br> **Datatype:** Boolean
 | `experimental.block_bad_exchanges` | Block exchanges known to not work with freqtrade. Leave on default unless you want to test if that exchange works now. <br>*Defaults to `true`.* <br> **Datatype:** Boolean
 | | **Plugins**
-| `edge.*` | Please refer to [edge configuration document](edge.md) for detailed explanation of all possible configuration options.
 | `pairlists` | Define one or more pairlists to be used. [More information](plugins.md#pairlists-and-pairlist-handlers). <br>*Defaults to `StaticPairList`.*  <br> **Datatype:** List of Dicts
 | | **Telegram**
 | `telegram.enabled` | Enable the usage of Telegram. <br> **Datatype:** Boolean
@@ -567,8 +566,8 @@ Configuration:
 
 ### Understand order_time_in_force
 
-The `order_time_in_force` configuration parameter defines the policy by which the order
-is executed on the exchange. Three commonly used time in force are:
+The `order_time_in_force` configuration parameter defines the policy by which the order is executed on the exchange.  
+Commonly used time in force are:
 
 **GTC (Good Till Canceled):**
 
@@ -590,11 +589,13 @@ is automatically cancelled by the exchange.
 Post only order. The order is either placed as a maker order, or it is canceled.
 This means the order must be placed on orderbook for at least time in an unfilled state.
 
+Please check the [Exchange documentation](exchanges.md) for supported time in force values for your exchange.
+
 #### time_in_force config
 
 The `order_time_in_force` parameter contains a dict with entry and exit time in force policy values.
 This can be set in the configuration file or in the strategy.
-Values set in the configuration file overwrites values set in the strategy.
+Values set in the configuration file overwrite values from in the strategy, following the regular [precedence rules](#configuration-option-prevalence).
 
 The possible values are: `GTC` (default), `FOK` or `IOC`.
 
@@ -606,8 +607,8 @@ The possible values are: `GTC` (default), `FOK` or `IOC`.
 ```
 
 !!! Warning
-    This is ongoing work. For now, it is supported only for binance, gate and kucoin.
     Please don't change the default value unless you know what you are doing and have researched the impact of using different values for your particular exchange.
+
 
 ### Fiat conversion
 
